@@ -1,23 +1,21 @@
-import logo from "./logo.svg";
-import ".//assets/styles/App.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AppPrivateRoutes, AppPublicRoutes } from "./config/rooter.js";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setLoggedIn(token);
+  }, [isLoggedIn]);
+  console.log(isLoggedIn);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        {!isLoggedIn && <AppPublicRoutes />}
+        {isLoggedIn && <AppPrivateRoutes />}
+      </Router>
     </div>
   );
 }
