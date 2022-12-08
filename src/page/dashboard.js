@@ -1,140 +1,74 @@
-import logo from "../assets/images/logo.png";
-import menu from "../assets/images/fi_menu.png";
-import logoProfile from "../assets/images/logo-profile.png";
-import logoSmall from "../assets/images/logo-small.png";
-import home from "../assets/images/fi_home.png";
-import truck from "../assets/images/fi_truck.png";
-import { Dropdown, Form } from "react-bootstrap";
+import rectangle from "../assets/images/Rectangle 9.png";
+import { Form } from "react-bootstrap";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { BarchartData } from "../ex-redux/actions/chart-action";
+import Header from "../component/header";
+import SideBar from "../component/sideBar";
 
-const Dashboard = () => {
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    amt: 2100,
+  },
+];
+
+const Dashboard = (props) => {
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(BarchartData());
+  // }, [dispatch]);
+
+  // const data = useSelector((state) => state);
+
   return (
-    <div style={{ backgroundColor: " #f4f5f7", fontFamily: "Arial" }}>
-      {/* Header */}
-      <section>
-        <nav className="navbar navbar-expand-lg shadow-sm bg-white position-fixed w-100">
-          <div className="container-fluid ms-4 ps-3">
-            <a className="navbar-brand mx-5" href="https//">
-              <img src={logo} alt="" />
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-5 ps-4">
-                <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasScrolling"
-                    aria-controls="offcanvasScrolling"
-                    href="https//"
-                  >
-                    <img src={menu} alt="" />
-                  </a>
-                </li>
-              </ul>
-              <form className="d-flex" role="search">
-                <input
-                  className="form-control rounded-0"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button
-                  className="btn btn-outline-primary rounded-0 fw-bold"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </form>
-              <ul className="navbar-nav mb-2 mb-lg-0 ms-3">
-                <li className="nav-item">
-                  <a href="nav-Link">
-                    <img src={logoProfile} alt="" />
-                  </a>
-                </li>
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="bg-white"
-                    align="end"
-                    id="dropdown-menu-align-end"
-                    border="white"
-                  >
-                    Unis Badri
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="mt-3">
-                    <Dropdown.Item eventKey="1" className="text-end">
-                      <button
-                        className="btn btn-primary w-100"
-                        onClick={() => {
-                          localStorage.removeItem("access_token");
-                          window.location.replace("/");
-                        }}
-                      >
-                        Log out
-                      </button>
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </section>
-
-      {/* Navbar */}
-      <section>
-        <nav
-          className="display-fixed position-absolute z-index top-0 text-center text-light"
-          style={{
-            width: "70px",
-            height: "100%",
-            fontSize: "12px",
-            backgroundColor: "#0d28a6",
-          }}
-        >
-          <div className="p-3">
-            <a href="https/">
-              <img src={logoSmall} alt="" />
-            </a>
-          </div>
-          <div
-            className="btn p-0 py-2 rounded-0 w-100"
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
-              fontSize: "12px",
-            }}
-          >
-            <img src={home} alt="" />
-            <p className="m-0 fw-bold text-white">Dashboard</p>
-          </div>
-          <div
-            className="btn p-0 py-2 rounded-0 w-100"
-            style={{ fontSize: "12px" }}
-          >
-            <img src={truck} alt="" />
-            <br />
-            <p className="m-0 text-white">Cars</p>
-          </div>
-        </nav>
-      </section>
-
-      {/* <!-- Content --> */}
+    <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
+      <Header />
+      <SideBar />
+      {/* Content */}
       <section
         className="position-absolute"
-        style={{ top: "80px", left: "320px" }}
+        style={{ top: "80px", left: "320px", zIndex: "-99", width: "63%" }}
       >
         <div className="d-flex">
           <p className="fw-bold">Dashboard</p>
@@ -154,9 +88,20 @@ const Dashboard = () => {
         </div>
         {/* <!-- Data Visual --> */}
         <div className="mt-5">
-          <h6 className="fw-bold">Rented car Data Visualiation</h6>
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <img className="" src={rectangle} alt="" height="20px" />
+            </div>
+            <div class="flex-grow-1 ms-1">
+              <h6 className="fw-bold d-inline fs-6">
+                Rented car Data Visualiation
+              </h6>
+            </div>
+          </div>
+
           <p>Month</p>
-          <div className="d-flex">
+
+          <div className="d-flex" style={{ width: "200px" }}>
             <Form.Select
               aria-label="Default select example"
               className="rounded-0"
@@ -170,12 +115,39 @@ const Dashboard = () => {
               Go
             </a>
           </div>
+
+          <BarChart
+            className="mt-5"
+            width={800}
+            height={600}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="uv" fill="#586B90" />
+          </BarChart>
         </div>
 
         {/* <!-- List Order --> */}
         <div className="mt-5">
           <h5 className="fw-bold">Dashboard</h5>
-          <h6 className="fw-bold">List Order</h6>
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <img className="" src={rectangle} alt="" height="20px" />
+            </div>
+            <div class="flex-grow-1 ms-1">
+              <h6 className="fw-bold d-inline fs-6">List Data</h6>
+            </div>
+          </div>
         </div>
       </section>
     </div>

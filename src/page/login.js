@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { fetchApi } from "../config/fetchApi.js";
 
 function Login() {
@@ -7,7 +6,7 @@ function Login() {
     email: "",
     password: "",
   });
-  // const navigate = useNavigate();
+
   const handleChange = (_) => {
     const { name, value } = _.target;
     setstate((prev) => ({
