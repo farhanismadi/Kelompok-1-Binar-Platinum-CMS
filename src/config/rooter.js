@@ -13,22 +13,22 @@ const privateRoutes = (props) => [
   {
     index: true,
     path: "/dashboard",
-    element: <Dashboard {...props} title="dashboard" />,
+    element: <Dashboard {...props} title="Dashboard" />,
   },
   {
     index: true,
     path: "/list-car",
-    element: <ListCar {...props} title="dashboard" />,
+    element: <ListCar {...props} title="List Car" />,
   },
   {
     index: true,
     path: "/add-new-car",
-    element: <AddNewCar {...props} title="dashboard" />,
+    element: <AddNewCar {...props} title="Add Car" />,
   },
   {
     index: true,
-    path: "/edit-car",
-    element: <EditCar {...props} title="dashboard" />,
+    path: "/edit-car/:id",
+    element: <EditCar {...props} title="Edit Car" />,
   },
   { index: true, path: "/*", element: <>ERROR</> },
 ];

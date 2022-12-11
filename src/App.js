@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+// import { BrowserRouter as Router } from "react-router-dom";
 import { AppPrivateRoutes, AppPublicRoutes } from "./config/rooter.js";
 import { useEffect, useState } from "react";
 import { Fragment } from "react";
@@ -14,10 +14,8 @@ function App() {
   return (
     <Fragment>
       <div className="App">
-        <Router>
-          {!isLoggedIn && <AppPublicRoutes />}
-          {isLoggedIn && <AppPrivateRoutes />}
-        </Router>
+        {!isLoggedIn && <AppPublicRoutes />}
+        {isLoggedIn && <AppPrivateRoutes />}
       </div>
     </Fragment>
   );

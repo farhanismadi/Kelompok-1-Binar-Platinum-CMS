@@ -1,12 +1,24 @@
 import Header from "../component/header";
 import SideBar from "../component/sideBar";
 import { useNavigate } from "react-router-dom";
+import CarCard from "../component/card";
+import { requestApiGET } from "../ex-redux/actions/lesson-action";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import SvgComponent from "../component/loader";
 
-function ListCar() {
+function ListCar(props) {
   const navigate = useNavigate();
   const toAddNewCar = (e) => {
     navigate("/add-new-car");
   };
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(requestApiGET({ state: state.dataList.isTable }));
+  }, [dispatch, state.dataList.isTable]);
 
   return (
     <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
@@ -38,6 +50,13 @@ function ListCar() {
           <button onClick={toAddNewCar} className="btn btn-primary rounded-0">
             + Add New Car
           </button>
+        </div>
+        <div className="mt-5">
+          {state.dataList.loading ? (
+            <SvgComponent />
+          ) : (
+            <CarCard data={state.dataList.data} {...props} />
+          )}
         </div>
       </div>
     </div>

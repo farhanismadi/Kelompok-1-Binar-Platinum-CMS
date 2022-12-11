@@ -13,6 +13,18 @@ export const fetchApi = (params) => {
   );
 };
 
+export const connectApi = (params) => {
+  return axios.get(url + "admin/v2/car", {
+    params: {
+      ...params,
+    },
+    headers: {
+      access_token: `${TOKEN}`,
+      "content-type": "application/json",
+    },
+  });
+};
+
 export const getApi = (endpoint, params) => {
   return axios.get(url + endpoint, {
     params: {
@@ -26,7 +38,6 @@ export const getApi = (endpoint, params) => {
 };
 
 export const postApi = (endpoint, params) => {
-  console.log(params);
   return axios.post(
     url + endpoint,
     {

@@ -1,7 +1,63 @@
 import Header from "../component/header";
 import SideBar from "../component/sideBar";
+import {
+  requestApiGETById,
+  requestPOST,
+  requestPUT,
+} from "../ex-redux/actions/lesson-action";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { Button, FormGroup, Input, Label } from "reactstrap";
 
 function AddNewCar() {
+  const dispatch = useDispatch();
+  const { formState } = useSelector((state) => state.dataList);
+  const navigate = useNavigate();
+  const [forms, setforms] = useState(formState);
+  const { id } = useParams();
+  const [image, setImage] = useState(null);
+  const [updateImg, setUpdateImg] = useState(false);
+  const handleChange = (_) => {
+    const { value, name } = _.target;
+    setforms((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
+    id && dispatch(requestApiGETById({ id }));
+  }, [id]);
+  useEffect(() => {
+    setTimeout(() => {
+      setforms(formState);
+      id && setImage(formState.image);
+    }, 1000);
+  }, [formState, id]);
+  const fileUpload = (_) => {
+    var file = _.target.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      setImage(reader.result);
+      setforms((prev) => ({
+        ...prev,
+        image: file,
+      }));
+      id && setUpdateImg(true);
+    };
+    reader.readAsDataURL(file);
+  };
+  const handleSubmit = (_) => {
+    _.preventDefault();
+    if (id) {
+      if (!updateImg) {
+        delete forms.image;
+      }
+      dispatch(requestPUT({ id, value: forms, navigate }));
+    } else {
+      dispatch(requestPOST({ value: forms, navigate }));
+    }
+  };
   return (
     <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
       <Header />
@@ -11,36 +67,88 @@ function AddNewCar() {
         className="position-absolute"
         style={{ top: "80px", left: "320px", zIndex: "-99", width: "63%" }}
       >
-        <div className="d-flex">
-          <p className="fw-bold">Cars</p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-chevron-right mt-1"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
-          <p className="fw-bold">List Car</p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-chevron-right mt-1"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-            />
-          </svg>
-          <p>Add New Car</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "6rem",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
+              <FormGroup>
+                <Input
+                  onChange={handleChange}
+                  name="name"
+                  placeholder="Name..."
+                  type="text"
+                  value={forms.name}
+                />
+              </FormGroup>
+            </div>
+            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
+              <FormGroup>
+                <Input
+                  onChange={handleChange}
+                  name="category"
+                  placeholder="Category.."
+                  type="text"
+                  value={forms.category}
+                />
+              </FormGroup>
+            </div>
+            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
+              <FormGroup>
+                <Input
+                  onChange={handleChange}
+                  name="price"
+                  placeholder="Price..."
+                  type="text"
+                  value={forms.price}
+                />
+              </FormGroup>
+            </div>
+            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
+              <FormGroup switch>
+                <Input
+                  name="status"
+                  onChange={() =>
+                    setforms((prev) => ({
+                      ...prev,
+                      isRented: !forms.isRented,
+                    }))
+                  }
+                  type="switch"
+                  role="switch"
+                  checked={forms.isRented}
+                />
+                <Label check>
+                  {forms.isRented ? "available" : "unavailable"}
+                </Label>
+              </FormGroup>
+            </div>
+            <div style={{ display: "flex", paddingTop: 4, paddingBottom: 4 }}>
+              <FormGroup switch>
+                <Input name="status" type="file" onChange={fileUpload} />
+              </FormGroup>
+              {image && (
+                <div>
+                  <img
+                    width="100%"
+                    height={90}
+                    src={image}
+                    alt="folating-hello"
+                  />
+                </div>
+              )}
+            </div>
+            <div
+              style={{ padding: 20, display: "flex", justifyContent: "end" }}
+            >
+              <Button color="primary">Save</Button>
+            </div>
+          </form>
         </div>
-        <h6 className="fw-bold">Add New Car</h6>
       </div>
     </div>
   );

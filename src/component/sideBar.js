@@ -2,15 +2,19 @@ import logoSmall from "../assets/images/logo-small.png";
 import home from "../assets/images/fi_home.png";
 import truck from "../assets/images/fi_truck.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
   const toDashboard = (e) => {
     navigate("/dashboard");
+    setIsActive((current) => !current);
   };
 
   const toCars = (e) => {
     navigate("/list-car");
+    setIsActive((current) => !current);
   };
   return (
     <div>
@@ -34,7 +38,7 @@ const SideBar = () => {
           <div
             className="btn p-0 py-2 rounded-0 w-100"
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              backgroundColor: isActive ? "rgba(255, 255, 255, 0.3)" : "",
               fontSize: "12px",
             }}
           >
