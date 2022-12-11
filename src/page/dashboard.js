@@ -29,7 +29,6 @@ const Dashboard = (props) => {
         until: endDate,
       });
   }, [startDate, endDate]);
-  console.log("Dashboard", barChart);
   return (
     <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
       <Header />
