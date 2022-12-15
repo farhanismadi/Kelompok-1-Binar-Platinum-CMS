@@ -8,6 +8,7 @@ import { BarchartData } from "../ex-redux/actions/chart-action";
 import { FormGroup } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TableCar from "../component/table";
 
 const Dashboard = (props) => {
   const [state, setState] = useState({
@@ -29,14 +30,21 @@ const Dashboard = (props) => {
         until: endDate,
       });
   }, [startDate, endDate]);
+
   return (
-    <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
+    <div>
       <Header />
       <SideBar />
       {/* Content */}
       <section
         className="position-absolute"
-        style={{ top: "80px", left: "320px", zIndex: "-99", width: "63%" }}
+        style={{
+          zIndex: "-99",
+          width: "100%",
+          padding: "100px 0 200px 320px",
+          backgroundColor: "#F4F5F7",
+          fontFamily: "Arial",
+        }}
       >
         <div className="d-flex">
           <p className="fw-bold">Dashboard</p>
@@ -70,34 +78,37 @@ const Dashboard = (props) => {
           <p>Month</p>
 
           <div className="d-flex" style={{ width: "200px" }}>
-            {/* <Form.Select
-              aria-label="Default select example"
-              className="rounded-0"
-            >
-              <option>Month</option>
-              <option value="1">January - 2022</option>
-              <option value="2">February - 2022</option>
-              <option value="3">June - 2022</option>
-            </Form.Select>
-            <a className="btn btn-primary rounded-0" href="https//">
-              Go
-            </a> */}
             <FormGroup
               style={{
-                display: "flex",
-                gap: "1rem",
                 padding: 16,
-                width: "50%",
               }}
             >
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-              />
-              <DatePicker
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-              />
+              <table>
+                <tr>
+                  <td>
+                    <p>Dari Tanggal</p>
+                  </td>
+                  <td>
+                    <p className="ms-3">Sampai Tanggal</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: "120px" }}>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
+                  </td>
+                  <td>
+                    <DatePicker
+                      className="ms-3"
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                    />
+                  </td>
+                </tr>
+              </table>
+
               {/* <FormText>Help</FormText> */}
             </FormGroup>
           </div>
@@ -115,6 +126,7 @@ const Dashboard = (props) => {
               <h6 className="fw-bold d-inline fs-6">List Data</h6>
             </div>
           </div>
+          <TableCar />
         </div>
       </section>
     </div>

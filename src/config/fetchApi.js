@@ -25,6 +25,18 @@ export const connectApi = (params) => {
   });
 };
 
+export const listCarApi = (params) => {
+  return axios.get(url + "admin/v2/order", {
+    params: {
+      ...params,
+    },
+    headers: {
+      access_token: `${TOKEN}`,
+      "content-type": "application/json",
+    },
+  });
+};
+
 export const getApi = (endpoint, params) => {
   return axios.get(url + endpoint, {
     params: {

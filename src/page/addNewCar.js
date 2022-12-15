@@ -4,7 +4,7 @@ import {
   requestApiGETById,
   requestPOST,
   requestPUT,
-} from "../ex-redux/actions/lesson-action";
+} from "../ex-redux/actions/action";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
@@ -58,93 +58,143 @@ function AddNewCar() {
       dispatch(requestPOST({ value: forms, navigate }));
     }
   };
+  const cancelButton = () => {
+    navigate("/list-car");
+  };
   return (
-    <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
+    <div>
       <Header />
       <SideBar />
       {/* Content */}
       <div
         className="position-absolute"
-        style={{ top: "80px", left: "320px", zIndex: "-99", width: "63%" }}
+        style={{
+          zIndex: "-99",
+          width: "100%",
+          height: "100%",
+          padding: "100px 30px 200px 320px",
+          backgroundColor: "#F4F5F7",
+          fontFamily: "Arial",
+        }}
       >
+        <div className="d-flex">
+          <p className="fw-bold">Cars</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-chevron-right mt-1"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+          <p className="fw-bold">List Car</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-chevron-right mt-1"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+            />
+          </svg>
+          <p className="fw-bold">Add New Car</p>
+        </div>
+        <h4 className="fw-bold mt-2">Add New Car</h4>
         <div
+          className="mt-3 bg-white p-3 ps-4 position-absolute"
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "start",
             marginTop: "6rem",
+            width: "73%",
           }}
         >
           <form onSubmit={handleSubmit}>
-            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
-              <FormGroup>
-                <Input
-                  onChange={handleChange}
-                  name="name"
-                  placeholder="Name..."
-                  type="text"
-                  value={forms.name}
-                />
-              </FormGroup>
-            </div>
-            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
-              <FormGroup>
-                <Input
-                  onChange={handleChange}
-                  name="category"
-                  placeholder="Category.."
-                  type="text"
-                  value={forms.category}
-                />
-              </FormGroup>
-            </div>
-            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
-              <FormGroup>
-                <Input
-                  onChange={handleChange}
-                  name="price"
-                  placeholder="Price..."
-                  type="text"
-                  value={forms.price}
-                />
-              </FormGroup>
-            </div>
-            <div style={{ paddingTop: 4, paddingBottom: 4 }}>
-              <FormGroup switch>
-                <Input
-                  name="status"
-                  onChange={() =>
-                    setforms((prev) => ({
-                      ...prev,
-                      isRented: !forms.isRented,
-                    }))
-                  }
-                  type="switch"
-                  role="switch"
-                  checked={forms.isRented}
-                />
-                <Label check>
-                  {forms.isRented ? "available" : "unavailable"}
-                </Label>
-              </FormGroup>
-            </div>
-            <div style={{ display: "flex", paddingTop: 4, paddingBottom: 4 }}>
-              <FormGroup switch>
-                <Input name="status" type="file" onChange={fileUpload} />
-              </FormGroup>
-              {image && (
-                <div>
-                  <img
-                    width="100%"
-                    height={90}
-                    src={image}
-                    alt="folating-hello"
+            <table>
+              <tr>
+                <td>Nama</td>
+                <td>
+                  <Input
+                    className="ms-5 my-2"
+                    onChange={handleChange}
+                    name="name"
+                    placeholder="Name..."
+                    type="text"
+                    value={forms.name}
                   />
-                </div>
-              )}
-            </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Harga</td>
+                <td>
+                  <Input
+                    className="ms-5 my-2"
+                    onChange={handleChange}
+                    name="price"
+                    placeholder="Price..."
+                    type="text"
+                    value={forms.price}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Foto</td>
+                <td>
+                  <Input
+                    className="ms-5 my-2"
+                    name="status"
+                    type="file"
+                    onChange={fileUpload}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Kategori</td>
+                <td>
+                  <Input
+                    className="ms-5 my-2"
+                    onChange={handleChange}
+                    name="category"
+                    placeholder="Category.."
+                    type="text"
+                    value={forms.category}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Created at</td>
+                <td>
+                  <p className="ms-5 my-2">-</p>
+                </td>
+              </tr>
+              <tr>
+                <td>Update</td>
+                <td>
+                  <p className="ms-5 my-2">-</p>
+                </td>
+              </tr>
+            </table>
             <div
-              style={{ padding: 20, display: "flex", justifyContent: "end" }}
+              className="position-absolute"
+              style={{
+                margin: "300px 0 0 0",
+                display: "flex",
+                justifyContent: "start",
+              }}
             >
+              <button
+                className="btn btn-outline-primary me-3 bg-white"
+                onClick={cancelButton}
+              >
+                Cancel
+              </button>
               <Button color="primary">Save</Button>
             </div>
           </form>

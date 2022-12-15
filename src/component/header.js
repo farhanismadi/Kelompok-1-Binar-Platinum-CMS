@@ -8,10 +8,10 @@ const Header = () => {
       {/* Header */}
       <section>
         <nav
-          className="navbar navbar-expand-lg shadow-sm bg-white position-fixed w-100"
+          className="navbar navbar-expand-sm shadow-sm bg-white position-fixed w-100"
           style={{ zIndex: "-5", height: "62px" }}
         >
-          <div className="container-fluid ms-4 ps-3">
+          <div className="container-fluid ms-5 ps-3">
             <button
               className="navbar-toggler"
               type="button"
@@ -61,7 +61,7 @@ const Header = () => {
                   >
                     Unis Badri
                   </Dropdown.Toggle>
-                  <Dropdown.Menu className="mt-3">
+                  <Dropdown.Menu className="mt-3 me-2">
                     <Dropdown.Item eventKey="1" className="text-end">
                       <button
                         className="btn btn-primary w-100"

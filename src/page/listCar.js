@@ -2,7 +2,7 @@ import Header from "../component/header";
 import SideBar from "../component/sideBar";
 import { useNavigate } from "react-router-dom";
 import CarCard from "../component/card";
-import { requestApiGET } from "../ex-redux/actions/lesson-action";
+import { requestApiGET } from "../ex-redux/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,13 +21,19 @@ function ListCar(props) {
   }, [dispatch, state.dataList.isTable]);
 
   return (
-    <div style={{ backgroundColor: "#F4F5F7", fontFamily: "Arial" }}>
+    <div>
       <Header />
       <SideBar />
       {/* Content */}
       <div
-        className="position-absolute"
-        style={{ top: "80px", left: "320px", zIndex: "-99", width: "63%" }}
+        className="position-absolute "
+        style={{
+          zIndex: "-99",
+          width: "100%",
+          padding: "100px 30px 200px 320px",
+          backgroundColor: "#F4F5F7",
+          fontFamily: "Arial",
+        }}
       >
         <div className="d-flex">
           <p className="fw-bold">Cars</p>
@@ -39,14 +45,14 @@ function ListCar(props) {
             className="bi bi-chevron-right mt-1"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
             />
           </svg>
           <p>List Car</p>
         </div>
-        <div className="d-flex justify-content-between w-100">
-          <h6 className="fw-bold">List Car</h6>
+        <div className="d-flex justify-content-between w-100 mt-3">
+          <h5 className="fw-bold">List Car</h5>
           <button onClick={toAddNewCar} className="btn btn-primary rounded-0">
             + Add New Car
           </button>

@@ -9,6 +9,7 @@ const publicRoutes = (props) => [
   { index: true, path: "/", element: <Login {...props} title="Home" /> },
   { index: true, path: "/*", element: <>ERROR</> },
 ];
+
 const privateRoutes = (props) => [
   {
     index: true,
