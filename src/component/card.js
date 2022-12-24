@@ -10,6 +10,7 @@ import vehicle from "../assets/images/Vehicle.png";
 import moment from "moment";
 import icon_user from "../assets/images/fi_users.svg";
 import icon_clock from "../assets/images/fi_clock.svg";
+import img_car from "../assets/images/img-car.png";
 
 const CarCard = ({ data }) => {
   const navigate = useNavigate();
@@ -51,11 +52,7 @@ const CarCard = ({ data }) => {
                 style={{ height: "auto", width: "300px" }}
               >
                 <Card.Img
-                  src={
-                    item.image
-                      ? item.image
-                      : "https://www.seekpng.com/png/detail/340-3404657_2018-mazda-mazda-2-2018-price.png"
-                  }
+                  src={item.image ? item.image : img_car}
                   alt="car-list"
                   className="card-img-top"
                   style={{ height: "200px", width: "100%", maxHeight: "300px" }}
