@@ -23,33 +23,7 @@ const initialState = {
   pageSize: 10,
   pageCount: 100,
   count: 1000,
-  orders: {
-    id: "",
-    total_price: "",
-    start_rent_at: "",
-    finish_rent_at: "",
-    status: "",
-    slip: "",
-    UserId: "",
-    CarId: "",
-    User: {
-      id: "",
-      email: "",
-      role: "",
-    },
-    Car: {
-      id: "",
-      name: "",
-      category: "",
-      price: "",
-      status: "",
-      start_rent_at: "",
-      finish_rent_at: "",
-      image: "",
-      createdAt: "",
-      updateAt: "",
-    },
-  },
+  ListOrders: null,
 };
 
 export const dataList = (state = initialState, action) => {
@@ -95,18 +69,7 @@ export const dataList = (state = initialState, action) => {
       return {
         ...state,
         detail: action.payload,
-        orders: {
-          User: {
-            email: action.payload.email,
-          },
-          Car: {
-            name: action.payload.name,
-            start_rent_at: action.payload.start_rent_at,
-            finish_rent_at: action.payload.finish_rent_at,
-            price: action.payload.price,
-            category: action.payload.category,
-          },
-        },
+        listOrders: { ...state.listOrders, ...action.payload },
       };
     default:
       return {

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import logoProfile from "../assets/images/logo-profile.png";
 import { Dropdown } from "react-bootstrap";
 import OffCanvas from "../component/offCanvas";

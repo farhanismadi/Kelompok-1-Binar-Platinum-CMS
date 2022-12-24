@@ -1,6 +1,6 @@
 import { getApi } from "../../config/fetchApi.js";
 
-export const BarchartData = (state) => async (dispatch) => {
+export const BarchartData = () => async (dispatch) => {
   try {
     const { data } = await getApi("admin/order/reports", {
       from: "2022-01-01",

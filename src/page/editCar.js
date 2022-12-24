@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Button, Input } from "reactstrap";
 
 function EditCar() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function EditCar() {
   const navigate = useNavigate();
   const [forms, setforms] = useState(formState);
   const { id } = useParams();
-  const [image, setImage] = useState(null);
+  const [, setImage] = useState(null);
   const [updateImg, setUpdateImg] = useState(false);
   const handleChange = (_) => {
     const { value, name } = _.target;
@@ -158,14 +158,16 @@ function EditCar() {
               <tr>
                 <td>Kategori</td>
                 <td>
-                  <Input
-                    className="ms-5 my-2"
-                    onChange={handleChange}
+                  <select
+                    className="form-select ms-5 my-2"
                     name="category"
-                    placeholder="Category.."
-                    type="text"
                     value={forms.category}
-                  />
+                    onChange={handleChange}
+                  >
+                    <option value="small">2-4 people</option>
+                    <option value="medium">4-6 people</option>
+                    <option value="large">6-8 people</option>
+                  </select>
                 </td>
               </tr>
               <tr>

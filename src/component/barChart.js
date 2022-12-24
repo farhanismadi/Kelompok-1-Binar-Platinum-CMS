@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
-// import BarchartData from "../ex-redux/actions/chart-action.js";
+
 const BarChart = ({ data }) => {
   useEffect(() => {
     let root = am5.Root.new("barChart");
@@ -17,6 +18,7 @@ const BarChart = ({ data }) => {
         pinchZoomX: true,
       })
     );
+
     let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
     cursor.lineY.set("visible", false);
 
@@ -58,15 +60,6 @@ const BarChart = ({ data }) => {
       })
     );
 
-    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
-    series.columns.template.adapters.add("fill", function (fill, target) {
-      return chart.get("colors").getIndex(series.columns.indexOf(target));
-    });
-
-    series.columns.template.adapters.add("stroke", function (stroke, target) {
-      return chart.get("colors").getIndex(series.columns.indexOf(target));
-    });
-
     xAxis.data.setAll(data);
     series.data.setAll(data);
     series.appear(1000);
@@ -75,6 +68,7 @@ const BarChart = ({ data }) => {
       root.dispose();
     };
   }, [data]);
+
   return <div id="barChart" style={{ width: "100%", height: "500px" }}></div>;
 };
 

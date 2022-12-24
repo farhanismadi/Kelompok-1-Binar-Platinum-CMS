@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Header from "../component/header";
 import SideBar from "../component/sideBar";
 import { useNavigate } from "react-router-dom";
@@ -12,13 +13,14 @@ function ListCar(props) {
   const navigate = useNavigate();
   const toAddNewCar = (e) => {
     navigate("/add-new-car");
+    window.location.reload(false);
   };
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(requestApiGET({ state: state.dataList.isTable }));
-  }, [dispatch, state.dataList.isTable]);
+    dispatch(requestApiGET({ state: state.dataList.listOrders }));
+  }, [dispatch, state.dataList.listOrders]);
 
   return (
     <div>
@@ -30,7 +32,7 @@ function ListCar(props) {
         style={{
           zIndex: "-99",
           width: "100%",
-          padding: "100px 30px 200px 320px",
+          padding: "100px 120px 200px 320px",
           backgroundColor: "#F4F5F7",
           fontFamily: "Arial",
         }}
@@ -51,13 +53,25 @@ function ListCar(props) {
           </svg>
           <p>List Car</p>
         </div>
-        <div className="d-flex justify-content-between w-100 mt-3">
+        <div className="d-flex justify-content-between">
           <h5 className="fw-bold">List Car</h5>
           <button onClick={toAddNewCar} className="btn btn-primary rounded-0">
             + Add New Car
           </button>
         </div>
-        <div className="mt-5">
+        <div className="d-flex gap-2 ">
+          <button className="btn btn-primary mt-3 rounded-1 ">All</button>
+          <button className="btn btn-light  border-primary text-primary mt-3 rounded-1 ">
+            2-4 people
+          </button>
+          <button className="btn btn-light border-primary text-primary mt-3 rounded-1 ">
+            4-6 people
+          </button>
+          <button className="btn btn-light border-primary text-primary mt-3 rounded-1 ">
+            6-8 people
+          </button>
+        </div>
+        <div className="mt-3">
           {state.dataList.loading ? (
             <SvgComponent />
           ) : (

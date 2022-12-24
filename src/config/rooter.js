@@ -1,12 +1,14 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useRoutes } from "react-router-dom";
 import Login from "../page/login";
 import Dashboard from "../page/dashboard";
 import ListCar from "../page/listCar";
 import AddNewCar from "../page/addNewCar";
 import EditCar from "../page/editCar";
+import { ModalLogin } from "../component/modalLogin";
 
 const publicRoutes = (props) => [
-  { index: true, path: "/", element: <Login {...props} title="Home" /> },
+  { index: true, path: "/", element: <Login {...props} title="Login" /> },
   { index: true, path: "/*", element: <>ERROR</> },
 ];
 
@@ -31,7 +33,7 @@ const privateRoutes = (props) => [
     path: "/edit-car/:id",
     element: <EditCar {...props} title="Edit Car" />,
   },
-  { index: true, path: "/*", element: <>ERROR</> },
+  { index: true, path: "/*", element: <ModalLogin {...props} title="error" /> },
 ];
 
 export const AppPublicRoutes = (props) => {

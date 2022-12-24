@@ -1,11 +1,15 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Row, Col, Card, Button, Modal } from "react-bootstrap";
+import { Row, Col, Card, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { requestDELETE } from "../ex-redux/actions/action";
 import iconTrash from "../assets/images/icon_trash.svg";
 import iconEdit from "../assets/images/icon_edit.svg";
 import vehicle from "../assets/images/Vehicle.png";
+import moment from "moment";
+import icon_user from "../assets/images/fi_users.svg";
+import icon_clock from "../assets/images/fi_clock.svg";
 
 const CarCard = ({ data }) => {
   const navigate = useNavigate();
@@ -23,17 +27,28 @@ const CarCard = ({ data }) => {
     setShow(true);
     setId(item.id);
   };
-
+  const categoryCar = (car) => {
+    switch (car) {
+      case "small":
+        return "2 - 4 people";
+      case "medium":
+        return "4 - 6 people";
+      case "large":
+        return "6 - 8 people";
+      default:
+        return car;
+    }
+  };
   console.log(id);
   return (
-    <div className="container">
-      <Row className="row g-3">
+    <div className="">
+      <Row className="row g-3 gy-4">
         {data.map((item, index) => {
           return (
             <Col key={index} className="col-4">
               <Card
-                className="mobil-card"
-                style={{ height: "500px", width: "300px" }}
+                className="mobil-card p-3"
+                style={{ height: "auto", width: "300px" }}
               >
                 <Card.Img
                   src={
@@ -42,21 +57,36 @@ const CarCard = ({ data }) => {
                       : "https://www.seekpng.com/png/detail/340-3404657_2018-mazda-mazda-2-2018-price.png"
                   }
                   alt="car-list"
-                  className="card-img-top "
-                  style={{ height: "300px", width: "100%", maxHeight: "300px" }}
+                  className="card-img-top"
+                  style={{ height: "200px", width: "100%", maxHeight: "300px" }}
                 />
-                <Card.Body className="card-body d-grid gap-2">
-                  <Card.Text className="card-text">{item.name}</Card.Text>
+                <Card.Body className="card-body d-grid gap-2 p-0 pt-3">
+                  <Card.Text
+                    className="card-text"
+                    style={{ fontSize: "18px " }}
+                  >
+                    {item.name}
+                  </Card.Text>
                   <Card.Title
                     className="card-title fw-bold"
-                    style={{ fontSize: "16px " }}
+                    style={{ fontSize: "20px " }}
                   >
                     {formatNumeric(item.price)} / hari
                   </Card.Title>
                   <Card.Text className="card-text ">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    <div className="d-flex">
+                      <img src={icon_user} alt="" />
+                      <p className="m-0 ms-2">{categoryCar(item.category)}</p>
+                    </div>
+                    <div className="d-flex mt-3">
+                      <img src={icon_clock} alt="" />
+                      <p className="m-0 ms-2">
+                        Updated at
+                        {moment(item.updatedAt, `YYYY-MM-DD HH:mm`).format(
+                          ` DD MMM YYYY, HH:mm`
+                        )}
+                      </p>
+                    </div>
                   </Card.Text>
                   <div className="d-flex gap-3">
                     <button

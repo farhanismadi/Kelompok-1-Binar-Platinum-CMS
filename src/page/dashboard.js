@@ -9,17 +9,25 @@ import { FormGroup } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TableCar from "../component/table";
+import { ListCarData } from "../ex-redux/actions/listCar-action";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
   const [state, setState] = useState({
     from: "",
     until: "",
   });
+
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(BarchartData(state));
-  }, [dispatch, state]);
-  const { barChart } = useSelector((state) => state.dataList);
+    dispatch(ListCarData(page));
+  }, [dispatch, state, page]);
+  const { barChart, listOrders } = useSelector((state) => state.dataList);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   useEffect(() => {
@@ -30,6 +38,23 @@ const Dashboard = (props) => {
         until: endDate,
       });
   }, [startDate, endDate]);
+
+  const pageSizeTotal = (e) => {
+    setPage((prev) => ({
+      ...prev,
+      pageSize: e.target.value,
+    }));
+  };
+
+  const pageTo = (e) => {
+    setPage((prev) => ({
+      ...prev,
+      page: e.target.value,
+    }));
+  };
+
+  const sizePage = [10, 20, 30];
+  const toPage = [1, 2, 3];
 
   return (
     <div>
@@ -86,10 +111,10 @@ const Dashboard = (props) => {
               <table>
                 <tr>
                   <td>
-                    <p>Dari Tanggal</p>
+                    <p>From </p>
                   </td>
                   <td>
-                    <p className="ms-3">Sampai Tanggal</p>
+                    <p className="ms-3">Until</p>
                   </td>
                 </tr>
                 <tr>
@@ -118,7 +143,7 @@ const Dashboard = (props) => {
         {/* <!-- List Order --> */}
         <div className="mt-5">
           <h5 className="fw-bold">Dashboard</h5>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center mt-4  mb-3">
             <div className="flex-shrink-0">
               <img className="" src={rectangle} alt="" height="20px" />
             </div>
@@ -126,7 +151,44 @@ const Dashboard = (props) => {
               <h6 className="fw-bold d-inline fs-6">List Data</h6>
             </div>
           </div>
-          <TableCar />
+          <TableCar data={listOrders?.orders} />
+          <div className="d-flex">
+            <div className="me-3">
+              <p>Limit</p>
+              <select
+                className="form-select rounded-0"
+                value={page}
+                onChange={pageSizeTotal}
+                name="pageSize"
+              >
+                {sizePage.map((pageTotal) => (
+                  <option selected key={pageTotal} value={pageTotal}>
+                    {pageTotal}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <p>Jump to page</p>
+              <div className="d-flex">
+                <select
+                  className="form-select rounded-0"
+                  aria-label="Default select example"
+                  value={page}
+                  onChange={pageTo}
+                >
+                  {toPage.map((pageTo) => (
+                    <option key={pageTo} value={pageTo}>
+                      {pageTo}
+                    </option>
+                  ))}
+                </select>
+                <a className="btn btn-primary rounded-0" href="hh">
+                  Go
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

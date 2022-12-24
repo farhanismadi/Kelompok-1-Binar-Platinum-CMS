@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import logoSmall from "../assets/images/logo-small.png";
 import home from "../assets/images/fi_home.png";
 import truck from "../assets/images/fi_truck.png";
@@ -7,12 +8,12 @@ import { useState } from "react";
 const SideBar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
-  const toDashboard = (e) => {
+  const toDashboard = () => {
     navigate("/dashboard");
     setIsActive((current) => !current);
   };
 
-  const toCars = (e) => {
+  const toCars = () => {
     navigate("/list-car");
     setIsActive((current) => !current);
   };
